@@ -13,12 +13,14 @@ class Solution(object):
         stack, res = [], []
         
         while True:
+            # this loops implements DFS to go as deep as possible
             while root:
                 res.append(root.val)
                 stack.append(root)
                 root=root.left
             if not stack:
                 return res
+            #backtrack
             node=stack.pop()
             root=node.right
             
