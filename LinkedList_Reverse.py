@@ -33,7 +33,7 @@ class Solution(object):
             return head
         
         new_node = ListNode()
-        new_node = self.reverseList(head.next)
+        new_node = self.reverseList_recursive(head.next)
         
         head.next.next = head
         head.next = None
