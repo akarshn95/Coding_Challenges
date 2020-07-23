@@ -28,13 +28,15 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        
+        # if empty or last node
         if not head or not head.next:
             return head
         
+        # store last node (new head)
         new_node = ListNode()
         new_node = self.reverseList_recursive(head.next)
         
+        # Reverse the pointer direction of the head
         head.next.next = head
         head.next = None
         return new_node
