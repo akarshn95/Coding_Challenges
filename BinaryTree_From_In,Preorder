@@ -1,0 +1,32 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def buildTree(self, preorder, inorder):
+        """
+        :type preorder: List[int]
+        :type inorder: List[int]
+        :rtype: TreeNode
+        """
+        # to get the soln in O(n) time, build reverse hashmap of index to quickly find index of the element
+        idx = defaultdict(int)
+        for i, ino in enumerate(inorder):
+            idx[ino] = i
+            
+        # preorder passed in reverse so that pop() takes place in constant time unlike pop(i)
+        return self.helper(preorder[::-1],inorder,idx,0,len(inorder))
+    
+    # the two pointers are the inorder list pointers, for left child, eliminate right half and vice versa
+    def helper(self, preorder,inorder,idx,left_p,right_p):
+        if left_p<right_p:
+            num = preorder.pop()
+            root = TreeNode(num)
+            ind = idx[num]
+            
+            root.left = self.helper(preorder,inorder,idx,left_p,ind)
+            root.right = self.helper(preorder,inorder,idx,ind+1,right_p)
+            
+            return root
